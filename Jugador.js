@@ -1,7 +1,7 @@
 class Jugador {
     constructor() {
-        this.x = 10;
-        this.y = 10;
+        this.x = 12;
+        this.y = 12;
         this.longBarco = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
         this.nbarcos = this.longBarco.length;
         this.tablero = new Array(this.x).fill(null).map(() => new Array(this.y).fill(null));
@@ -40,6 +40,9 @@ class Jugador {
         celdas.forEach((celda, j) => {
             const casilla = new Casilla(i, j);
             celda.casilla = casilla;
+            celda.id = `casilla-${i}-${j}`
+            celda.textContent = '●'; 
+
             this.tablero[i][j] = casilla
         });
     });
@@ -52,13 +55,22 @@ class Jugador {
         }
     }
 
-    disparado() {
-        let casillaDisparada = this.casillaDisparada();
-        casillaDisparada.setDisparado(true);
-        if (casillaDisparada.getBarco() !== null) {
-            this.IATocado(casillaDisparada);
-            casillaDisparada.getBarco().setTocado(casillaDisparada.getBarco().getTocado() + 1);
-            if (casillaDisparada.getBarco().getTocado() === casillaDisparada.getBarco().getLongitud()) {
+    disparado(x, y) {
+        const casilla = this.casillaDisparada(x, y);
+    
+        if (casilla === null) {
+            return "Tocado";
+        }
+    
+        casilla.setDisparado(true);
+
+    const casillaId = `casilla-${x}-${y}`;
+    const celda = document.getElementById(casillaId);
+        if (casilla.getBarco() !== null) {
+            this.IATocado(casilla);
+            celda.classList.add('tocado');
+            casilla.getBarco().setTocado(casilla.getBarco().getTocado() + 1);
+            if (casilla.getBarco().getTocado() === casilla.getBarco().getLongitud()) {
                 console.log(this.espacios() + "HUNDIDO!!!");
                 this.IAHundido();
                 this.setBarcoshundidos(this.getBarcoshundidos() + 1);
@@ -74,41 +86,25 @@ class Jugador {
         } else {
             console.log(this.espacios() + "Agua");
             this.IAgua();
+            celda.classList.add('agua');
             return "Agua";
         }
     }
-
-    casillaDisparada() {
-        let x = 0;
-        let y = 0;
-        let valido = true;
-        let s = require("readline-sync");
-        let veces = false;
-        do {
-            if (veces) {
-                console.log("Ya has disparado esa casilla");
-            }
-            do {
-                valido = true;
-                console.log("Introduce una posicion y(de la A a la J) y x(de 1 a 10)");
-                let cadena = s.question();
-
-                try {
-                    y = cadena.toUpperCase().charCodeAt(0) - 'A'.charCodeAt(0);
-                    x = parseInt(cadena.substring(1)) - 1;
-                    if (x < 0 || x > this.getX() - 1 || y < 0 || y > this.getY() - 1) {
-                        throw new Error("ArrayIndexOutOfBoundsException");
-                    }
-                } catch (error) {
-                    valido = false;
-                    console.log(this.espacios() + "Valor no admitido");
-                }
-            } while (!valido);
-            veces = true;
-        } while (this.getCasilla(x, y).isDisparado());
-        console.log("Dispara a " + this.getCasilla(x, y).toString());
-        return this.getCasilla(x, y);
+    casillaDisparada(x, y) {
+        const casilla = this.getCasilla(x, y);
+    
+        if (casilla.isDisparado()) {
+            console.log("Ya has disparado esa casilla");
+            return null; 
+        }
+    
+        casilla.setDisparado(true);
+        console.log("Dispara a " + casilla.toString());
+    
+    
+        return casilla;
     }
+    
 
     IATocado(casillaDisparada) {}
 
@@ -149,5 +145,12 @@ class Jugador {
         }
     }
 }
+document.querySelectorAll('.square').forEach(celda => {
+    celda.addEventListener('click', () => {
+        const x = parseInt(celda.parentElement.querySelector('.square').textContent) - 1; 
+        const y = celda.cellIndex - 1; 
+        const resultado = this.disparado(x, y); 
+        console.log(resultado);
+    });
+});
 
-module.exports = Jugador;

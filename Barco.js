@@ -29,6 +29,8 @@ class Barco {
 
             while (x1 <= x + this.longitud - 1 && y1 <= y + this.longitud - 1 && valido) {
                 const casilla = jugador.getCasilla(x1, y1);
+                console.log(x1)
+                console.log(y1)
                 this.posiciones.push(casilla);
                 if (!casilla.isPuedeBarco()) {
                     valido = false;
@@ -52,10 +54,10 @@ class Barco {
             const x = casilla.getX();
             const y = casilla.getY();
     
-            // Obtén la celda correspondiente en el DOM usando las coordenadas X e Y
-            const celda = document.querySelector(`.row:nth-child(${x + 2}) .col:nth-child(${y + 2})`);
-    
-            // Agrega la clase has-ship a la celda correspondiente
+
+            const casillaId = `casilla-${x}-${y}`;
+            const celda = document.getElementById(casillaId);
+
             celda.classList.add('has-ship');
         });
     }
