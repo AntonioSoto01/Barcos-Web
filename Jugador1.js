@@ -3,6 +3,7 @@ class Jugador1 extends Jugador {
         super();
         this.ultTocado = null;
         this.estado = 1;
+        this.nombreTablero='tableroMaquina'
     }
 
     getEstado() {
@@ -114,5 +115,3 @@ class Jugador1 extends Jugador {
         return " ".repeat(130);
     }
 }
-
-module.exports = Jugador1;

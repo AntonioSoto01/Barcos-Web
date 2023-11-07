@@ -9,6 +9,7 @@
     <script src="Casilla.js"></script>
     <script src="Barco.js"></script>
     <script src="Jugador.js"></script>
+    <script src="Jugador1.js"></script>
     <script src="Principal.js"></script>
     <style>
         .square {
@@ -48,160 +49,22 @@
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Hundir la Flota</h1>
-        <div class="row">
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-1 p-3 text-center border square2"></div>
-                    <div class="col-1 p-3 text-center border square2">A</div>
-                    <div class="col-1 p-3 text-center border square2">B</div>
-                    <div class="col-1 p-3 text-center border square2">C</div>
-                    <div class="col-1 p-3 text-center border square2">D</div>
-                    <div class="col-1 p-3 text-center border square2">E</div>
-                    <div class="col-1 p-3 text-center border square2">F</div>
-                    <div class="col-1 p-3 text-center border square2">G</div>
-                    <div class="col-1 p-3 text-center border square2">H</div>
-                    <div class="col-1 p-3 text-center border square2">I</div>
-                    <div class="col-1 p-3 text-center border square2">J</div>
-                </div>
-                <div class="row">
-                    <div class="col-1 p-3 text-center border square2">1</div>
-                    <div class="col-1 p-3 text-center border square"></div>
-                    <div class="col-1 p-3 text-center border square  "></div>
-                    <div class="col-1 p-3 text-center border square  "></div>
-                    <div class="col-1 p-3 text-center border square"></div>
-                    <div class="col-1 p-3 text-center border square "></div>
-                    <div class="col-1 p-3 text-center border  square  sunk"></div>
-                    <div class="col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">2</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  tocado"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">3</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">4</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">5</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">6</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">7</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">8</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">9</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-                <div class="row">
-                    <div class=" col-1 p-3 text-center border square2">10</div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                    <div class=" col-1 p-3 text-center border square"></div>
-                    <div class=" col-1 p-3 text-center border square "></div>
-                    <div class=" col-1 p-3 text-center border square  "></div>
-                </div>
-
-
-            </div>
+        <h1 class="text-center mb-4">Hundir la Flota - Jugador 1</h1>
+        <div class="col-10" id="tableroJugador">
+            <!-- Contenido del tablero del Jugador 1 se generará aquí -->
         </div>
     </div>
+    
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Hundir la Flota - Jugador 2</h1>
+        <div class="col-10" id="tableroMaquina">
+            <!-- Contenido del tablero del Jugador 2 se generará aquí -->
+        </div>
+    </div>
+    
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
 
 </body>

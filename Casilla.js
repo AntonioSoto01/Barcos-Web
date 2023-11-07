@@ -6,6 +6,7 @@ class Casilla {
         this.puedeBarco = true;
         this.puedeDisparar = true;
         this.barco = null;
+        this.hundido=false;
     }
 
     toString() {
@@ -43,7 +44,13 @@ class Casilla {
     setDisparado(disparado) {
         this.disparado = disparado;
     }
+    isHundido() {
+        return this.hundido;
+    }
 
+    setHundido(hundido) {
+        this.hundido = hundido;
+    }
     getBarco() {
         return this.barco;
     }

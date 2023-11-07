@@ -1,12 +1,13 @@
 class Jugador {
     constructor() {
-        this.x = 12;
-        this.y = 12;
+        this.x = 10;
+        this.y = 10;
         this.longBarco = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
         this.nbarcos = this.longBarco.length;
         this.tablero = new Array(this.x).fill(null).map(() => new Array(this.y).fill(null));
         this.barcos = new Array(this.nbarcos);
         this.barcoshundidos = 0;
+        this.nombreTablero='tableroJugador'
     }
 
     getNbarco() {
@@ -17,6 +18,9 @@ class Jugador {
         return this.barcoshundidos;
     }
 
+    getNombreTablero() {
+        return this.nombreTablero;
+    }
     setBarcoshundidos(barcoshundidos) {
         this.barcoshundidos = barcoshundidos;
     }
@@ -32,21 +36,22 @@ class Jugador {
     getCasilla(x, y) {
         return this.tablero[x][y];
     }
-
- generarCasillas() {
-    const filas = document.querySelectorAll('.row');
-    filas.forEach((fila, i) => {
-        const celdas = fila.querySelectorAll('.square');
-        celdas.forEach((celda, j) => {
-            const casilla = new Casilla(i, j);
-            celda.casilla = casilla;
-            celda.id = `casilla-${i}-${j}`
-            celda.textContent = '●'; 
-
-            this.tablero[i][j] = casilla
+    generarCasillas() {
+        
+        const filas = document.querySelectorAll('.row');
+        filas.forEach((fila, i) => {
+            const celdas = fila.querySelectorAll('.square');
+            celdas.forEach((celda, j) => {
+                const casilla = new Casilla(i-1, j); // Ajustar índices aquí
+                celda.casilla = casilla;
+                celda.id = `casilla-${i-1}-${j}`; // Ajustar índices aquí
+                celda.textContent = '●';
+                this.tablero[i-1][j] = casilla;
+            });
         });
-    });
-}
+    }
+    
+    
 
     generarBarcos() {
         for (let i = 0; i < this.nbarcos; i++) {
@@ -73,6 +78,7 @@ class Jugador {
             if (casilla.getBarco().getTocado() === casilla.getBarco().getLongitud()) {
                 console.log(this.espacios() + "HUNDIDO!!!");
                 this.IAHundido();
+                casilla.getBarco().hundir();
                 this.setBarcoshundidos(this.getBarcoshundidos() + 1);
                 if (this.getBarcoshundidos() === this.getNbarco()) {
                     console.log(this.espacios() + "Todos los barcos hundidos");
@@ -115,42 +121,22 @@ class Jugador {
     espacios() {
         return "";
     }
-
-    ver(maquina) {
-        let a = 'A';
-        process.stdout.write(this.espacios() + String.format("%-6s", ""));
-        for (let i = 0; i < this.getX(); i++) {
-            process.stdout.write(String.format("%-6s", String.fromCharCode(a.charCodeAt(0) + i)));
-        }
-        console.log();
-        console.log();
-        for (let i = 0; i < this.getX(); i++) {
-            process.stdout.write(this.espacios() + String.format("%-6s", String.format("%2d", i + 1) + ")"));
-            for (let j = 0; j < this.getY(); j++) {
-                if (this.getCasilla(i, j).isDisparado()) {
-                    if (this.getCasilla(i, j).getBarco() !== null) {
-                        process.stdout.write(String.format("%-6s", "T"));
-                    } else {
-                        process.stdout.write(String.format("%-6s", "A"));
-                    }
-                } else {
-                    if (maquina && this.getCasilla(i, j).getBarco() !== null) {
-                        process.stdout.write(String.format("%-6s", "B"));
-                    } else {
-                        process.stdout.write(String.format("%-6s", "-"));
-                    }
-                }
+    generarTablero(filas, columnas, contenedorId) {
+        const contenedor = document.getElementById(contenedorId);
+    
+        for (let i = 0; i < filas; i++) {
+            const row = document.createElement('div');
+            row.className = 'row';
+    
+            for (let j = 0; j < columnas; j++) {
+                const cell = document.createElement('div');
+                cell.className = 'col-1 p-3 text-center border square';
+                cell.textContent = i === 0 ? String.fromCharCode(65 + j) : '';
+                row.appendChild(cell);
             }
-            console.log('\n');
+    
+            contenedor.appendChild(row);
         }
     }
 }
-document.querySelectorAll('.square').forEach(celda => {
-    celda.addEventListener('click', () => {
-        const x = parseInt(celda.parentElement.querySelector('.square').textContent) - 1; 
-        const y = celda.cellIndex - 1; 
-        const resultado = this.disparado(x, y); 
-        console.log(resultado);
-    });
-});
 
