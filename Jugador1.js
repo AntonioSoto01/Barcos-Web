@@ -30,7 +30,7 @@ class Jugador1 extends Jugador {
             do {
                 x = Math.floor(Math.random() * this.getX());
                 y = Math.floor(Math.random() * this.getY());
-            } while (this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuededisparar());
+            } while (this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuedeDisparar());
         } else {
             let valido = true;
             do {
@@ -51,7 +51,7 @@ class Jugador1 extends Jugador {
                         y--;
                         break;
                 }
-                if (y >= this.getY() || y < 0 || x < 0 || x >= this.getX() || this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuededisparar()) {
+                if (y >= this.getY() || y < 0 || x < 0 || x >= this.getX() || this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuedeDisparar()) {
                     this.actuUllTocado(this.getEstado());
                     this.setEstado(this.getEstado() + 1);
                     valido = false;
@@ -99,7 +99,7 @@ class Jugador1 extends Jugador {
     }
 
     IAHundido() {
-        this.getUllTocado().getBarco().puededisparar();
+        this.getUllTocado().getBarco().puedeDisparar();
         this.setUllTocado(null);
         this.setEstado(1);
     }

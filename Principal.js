@@ -2,43 +2,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const jugador = new Jugador();
     const maquina = new Jugador1();
 
-   // maquina.generarCasillas();
-    //maquina.generarBarcos();
-    const celdas = document.querySelectorAll('.square');
+var turnoJugador=true;
 
-    jugador.generarTablero(jugador.getX(), jugador.getY(), jugador.getNombreTablero());
+     maquina.generarTablero(maquina.getX(), maquina.getY(), maquina.getNombreTablero());
+    maquina.generarCasillas();
+     maquina.generarBarcos();
 
-    jugador.generarCasillas();
-    jugador.generarBarcos();
-    //maquina.generarTablero(maquina.getX(), maquina.getY(), maquina.getNombreTablero());
+
+     jugador.generarTablero(jugador.getX(), jugador.getY(), jugador.getNombreTablero());
+     jugador.generarCasillas();
+     jugador.generarBarcos();
+
+    const contenedor = document.getElementById(jugador.nombreTablero);
+    const celdas = contenedor.querySelectorAll('.square');
 
     celdas.forEach(celda => {
         celda.addEventListener('click', () => {
-
             const [_, x, y] = celda.id.split('-');
-            
+            if (turnoJugador) {
+                devolver(jugador, parseInt(x), parseInt(y));
+            }else{
+                console.log("no es tu turno")
+            }
 
-            const resultado = jugador.disparado(parseInt(x), parseInt(y));
-            
-            console.log(resultado);
         });
     });
-    let tocado = '';
-    //jugador.ver(false);
+    
+    function devolver(jugador, x, y) {
+        const resultado = jugador.disparado(x, y);
+        if (resultado === 'Hundido') {
 
-    // while (tocado !== 'Final') {
-    //     do {
-    //         console.log('Tu turno\n');
-    //         tocado = jugador.disparado();
-    //         jugador.ver(false);
-    //     } while (tocado === 'Tocado');
+        } else if (resultado === 'Tocado') {
 
-    //     if (tocado !== 'Final') {
-    //         do {
-    //             console.log();
-    //             tocado = jugador1.disparado();
-    //             jugador1.ver(true);
-    //         } while (tocado === 'Tocado');
-    //     }
-    // }
+        } else if (resultado === 'Final') {
+
+        } else if (resultado === 'Agua') {
+            turnoJugador = !turnoJugador;
+
+        } else if (resultado === 'Repetido') {
+ 
+        } else {
+        }
+        if (!turnoJugador) {
+            setTimeout(function() {
+                devolver(maquina);
+            }, 1000);
+
+        }
+    }
 });
+

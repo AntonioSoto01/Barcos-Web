@@ -55,10 +55,10 @@ class Barco {
             }
         } while (!valido);
 
-        this.colocarBarco();
+        this.colocarBarco(jugador);
         this.puedeBarco(x, y, horizontal, jugador);
     }
-    colocarBarco() {
+    colocarBarco(jugador) {
         this.posiciones.forEach(casilla => {
             casilla.setBarco(this);
 
@@ -68,9 +68,12 @@ class Barco {
 
 
             const casillaId = `casilla-${x}-${y}`;
-            const celda = document.getElementById(casillaId);
 
-            celda.classList.add('has-ship');
+            const contenedor = document.getElementById(jugador.nombreTablero);
+            const celda = contenedor.querySelector(`#${casillaId}`);
+            if (jugador instanceof Jugador1) {
+            celda.classList.add('has-ship');}
+            
         });
     }
     puedeBarco(x, y, horizontal, jugador) {
@@ -101,12 +104,16 @@ class Barco {
             casilla.setPuedeDisparar(false);
         });
     }
-    hundir() {
+    hundir(jugador) {
         this.posiciones.forEach(casilla => {
             casilla.setHundido(true);
             const casillaId = `casilla-${casilla.getX()}-${casilla.getY()}`;
-            const celda = document.getElementById(casillaId);
+
+
+            const contenedor = document.getElementById(jugador.nombreTablero);
+            const celda = contenedor.querySelector(`#${casillaId}`);
             celda.classList.add('sunk');
+            
         });
     }
 }
