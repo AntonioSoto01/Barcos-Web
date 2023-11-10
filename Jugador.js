@@ -75,7 +75,8 @@ class Jugador {
         const casillaId = `casilla-${casilla.x}-${casilla.y}`;
         const contenedor = document.getElementById(this.nombreTablero);
         const celda = contenedor.querySelector(`#${casillaId}`);
-        celda.textContent = '●';
+        // celda.textContent = '●';
+        this.parpadeo(celda);
         if (casilla.getBarco() !== null) {
             this.IATocado(casilla);
             // celda.classList.add('tocado');
@@ -99,9 +100,25 @@ class Jugador {
             console.log(this.espacios() + "Agua");
             celda.classList.remove('gris');
             this.IAgua();
-            //celda.classList.add('agua');
+            celda.classList.add('gris');
             return "Agua";
         }
+    }
+    parpadeo(celda) {
+        celda.textContent = '●';
+
+        let parpadeo = setInterval(function () {
+            if (celda.textContent === '●') {
+                celda.textContent = '';
+            } else {
+                celda.textContent = '●';
+            }
+        }, 500);
+
+        setTimeout(function () {
+            clearInterval(parpadeo);
+            celda.textContent = '●';
+        }, 2000);
     }
     casillaDisparada(x, y) {
         const casilla = this.getCasilla(x, y);

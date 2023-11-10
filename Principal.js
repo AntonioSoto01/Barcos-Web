@@ -30,6 +30,7 @@ var turnoJugador=true;
     
     function devolver(jugador, x, y) {
         const resultado = jugador.disparado(x, y);
+
         if (resultado === 'Hundido') {
 
         } else if (resultado === 'Tocado') {
@@ -43,10 +44,11 @@ var turnoJugador=true;
  
         } else {
         }
+        console.log(turnoJugador)
         if (!turnoJugador) {
             setTimeout(function() {
                 devolver(maquina);
-            }, 1000);
+            }, 2000);
 
         }
     }
