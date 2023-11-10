@@ -98,9 +98,9 @@ class Jugador {
             }
         } else {
             console.log(this.espacios() + "Agua");
-            celda.classList.remove('gris');
+
             this.IAgua();
-            celda.classList.add('gris');
+            //celda.classList.add('gris');
             return "Agua";
         }
     }
@@ -145,38 +145,39 @@ class Jugador {
     espacios() {
         return "";
     }
-    generarTablero(filas, columnas) {
-        const contenedor = document.getElementById(this.nombreTablero);
+   generarTablero(filas, columnas) {
+    const contenedor = document.getElementById(this.nombreTablero);
 
+    for (let i = 0; i <= filas; i++) {
+        const row = document.createElement('div');
+        row.classList.add('row');
 
-        for (let i = 0; i <= filas; i++) {
-            const row = document.createElement('div');
-            row.classList.add('row');
+        for (let j = 0; j <= columnas; j++) {
+            const col = document.createElement('div');
+            col.classList.add('col-1', 'p-3', 'text-center', 'border');
 
-            for (let j = 0; j <= columnas; j++) {
-                const col = document.createElement('div');
-                col.classList.add('col-1', 'p-3', 'text-center', 'border');
-
-                if (i === 0) {
-                    col.classList.add('square2');
-                    if (j > 0) {
-                        col.textContent = String.fromCharCode(64 + j);
-                    }
-                } else if (j === 0 && i > 0) {
-                    col.textContent = i;
-                    col.classList.add('square2');
-                } else {
-                    col.classList.add('square');
-                    // if (!(this instanceof Jugador1)) {
-                    //     col.classList.add('gris');
-                    // }
+            if (i === 0) {
+                col.classList.add('square2');
+                if (j > 0) {
+                    col.textContent = String.fromCharCode(64 + j);
                 }
-
-                row.appendChild(col);
+            } else if (j === 0 && i > 0) {
+                col.textContent = i;
+                col.classList.add('square2');
+            } else {
+                col.classList.add('square', 'text-center');
+                // Añade la clase 'gris' si es necesario
+                // if (!(this instanceof Jugador1)) {
+                //     col.classList.add('gris');
+                // }
             }
 
-            contenedor.appendChild(row);
+            row.appendChild(col);
         }
+
+        contenedor.appendChild(row);
     }
+}
+
 }
 

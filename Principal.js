@@ -1,33 +1,34 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const jugador = new Jugador();
     const maquina = new Jugador1();
 
-var turnoJugador=true;
+    var turnoJugador = true;
 
-     maquina.generarTablero(maquina.getX(), maquina.getY(), maquina.getNombreTablero());
+    maquina.generarTablero(maquina.getX(), maquina.getY(), maquina.getNombreTablero());
     maquina.generarCasillas();
-     maquina.generarBarcos();
+    maquina.generarBarcos();
 
 
-     jugador.generarTablero(jugador.getX(), jugador.getY(), jugador.getNombreTablero());
-     jugador.generarCasillas();
-     jugador.generarBarcos();
+    jugador.generarTablero(jugador.getX(), jugador.getY(), jugador.getNombreTablero());
+    jugador.generarCasillas();
+    jugador.generarBarcos();
 
     const contenedor = document.getElementById(jugador.nombreTablero);
     const celdas = contenedor.querySelectorAll('.square');
-
+    var disabled;
     celdas.forEach(celda => {
         celda.addEventListener('click', () => {
             const [_, x, y] = celda.id.split('-');
-            if (turnoJugador) {
+            if (!disabled) {
+                disabled = true;
                 devolver(jugador, parseInt(x), parseInt(y));
-            }else{
+            } else {
                 console.log("no es tu turno")
             }
 
         });
     });
-    
+
     function devolver(jugador, x, y) {
         const resultado = jugador.disparado(x, y);
 
@@ -41,15 +42,22 @@ var turnoJugador=true;
             turnoJugador = !turnoJugador;
 
         } else if (resultado === 'Repetido') {
- 
+
         } else {
         }
         console.log(turnoJugador)
-        if (!turnoJugador) {
-            setTimeout(function() {
+        setTimeout(function () {
+            actualizarMensajes();
+            if (!turnoJugador) {
                 devolver(maquina);
-            }, 2000);
-
+            } else {
+                disabled = false;
+            }
+        }, 2000);
+        function actualizarMensajes() {
+            document.getElementById('mensajeTurnoJugador').innerHTML = turnoJugador ? 'Tu turno' : '<br>';
+            document.getElementById('mensajeTurnoMaquina').innerHTML = turnoJugador ? '<br>' : 'Turno de la máquina';
+        
         }
     }
 });
