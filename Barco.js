@@ -62,7 +62,6 @@ class Barco {
         this.posiciones.forEach(casilla => {
             casilla.setBarco(this);
 
-            // Obtén las coordenadas X e Y de la casilla
             const x = casilla.getX();
             const y = casilla.getY();
 
@@ -71,8 +70,8 @@ class Barco {
 
             const contenedor = document.getElementById(jugador.nombreTablero);
             const celda = contenedor.querySelector(`#${casillaId}`);
-            if (jugador instanceof Jugador1) {
-            celda.classList.add('has-ship');}
+            if (jugador instanceof Maquina) {
+            celda.classList.add('barco');}
             
         });
     }
@@ -93,7 +92,7 @@ class Barco {
                     jugador.getCasilla(i, j).setPuedeBarco(false);
                     this.alrededor.push(jugador.getCasilla(i, j));
                 } catch (error) {
-                    // Manejar la excepción si está fuera de los límites del tablero
+                    
                 }
             }
         }
@@ -112,7 +111,7 @@ class Barco {
 
             const contenedor = document.getElementById(jugador.nombreTablero);
             const celda = contenedor.querySelector(`#${casillaId}`);
-            celda.classList.add('sunk');
+            celda.classList.add('hundido');
             
         });
     }

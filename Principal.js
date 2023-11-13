@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const jugador = new Jugador();
-    const maquina = new Jugador1();
+    const maquina = new Maquina();
 
     var turnoJugador = true;
 
@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const contenedor = document.getElementById(jugador.nombreTablero);
     const celdas = contenedor.querySelectorAll('.square');
-    var disabled;
+    var desactivado;
     celdas.forEach(celda => {
         celda.addEventListener('click', () => {
             const [_, x, y] = celda.id.split('-');
-            if (!disabled) {
-                disabled = true;
+            if (!desactivado && turnoJugador) {
+                desactivado = true;
                 devolver(jugador, parseInt(x), parseInt(y));
             } else {
                 console.log("no es tu turno")
@@ -32,33 +32,34 @@ document.addEventListener('DOMContentLoaded', function () {
     function devolver(jugador, x, y) {
         const resultado = jugador.disparado(x, y);
 
-        if (resultado === 'Hundido') {
-
-        } else if (resultado === 'Tocado') {
-
-        } else if (resultado === 'Final') {
-
+        if (resultado === 'Final') {
+            desactivado = true;
+            if (!turnoJugador) {
+                Swal.fire("¡Juego Terminado!", "¡Has perdido el juego!", "error");
+            } else {
+                Swal.fire("¡Juego Terminado!", "¡Has ganado el juego!", "success");
+            }
         } else if (resultado === 'Agua') {
             turnoJugador = !turnoJugador;
-
-        } else if (resultado === 'Repetido') {
-
-        } else {
         }
-        console.log(turnoJugador)
+
+        console.log(turnoJugador);
         setTimeout(function () {
             actualizarMensajes();
             if (!turnoJugador) {
-                devolver(maquina);
+                if (resultado !== 'Final') {
+                    devolver(maquina);
+                }
+
             } else {
-                disabled = false;
+                desactivado = false;
             }
         }, 2000);
-        function actualizarMensajes() {
-            document.getElementById('mensajeTurnoJugador').innerHTML = turnoJugador ? 'Tu turno' : '<br>';
-            document.getElementById('mensajeTurnoMaquina').innerHTML = turnoJugador ? '<br>' : 'Turno de la máquina';
-        
-        }
+    }
+
+    function actualizarMensajes() {
+        document.getElementById('mensajeTurnoJugador').innerHTML = turnoJugador ? 'Tu turno' : '<br>';
+        document.getElementById('mensajeTurnoMaquina').innerHTML = turnoJugador ? '<br>' : 'Turno de la máquina';
     }
 });
 

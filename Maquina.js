@@ -1,4 +1,4 @@
-class Jugador1 extends Jugador {
+class Maquina extends Jugador {
     constructor() {
         super();
         this.ultTocado = null;

@@ -75,12 +75,10 @@ class Jugador {
         const casillaId = `casilla-${casilla.x}-${casilla.y}`;
         const contenedor = document.getElementById(this.nombreTablero);
         const celda = contenedor.querySelector(`#${casillaId}`);
-        // celda.textContent = '●';
         this.parpadeo(celda);
         if (casilla.getBarco() !== null) {
             this.IATocado(casilla);
-            // celda.classList.add('tocado');
-            celda.classList.add('has-ship');
+            celda.classList.add('barco');
             casilla.getBarco().setTocado(casilla.getBarco().getTocado() + 1);
             if (casilla.getBarco().getTocado() === casilla.getBarco().getLongitud()) {
                 console.log(this.espacios() + "HUNDIDO!!!");
@@ -100,7 +98,7 @@ class Jugador {
             console.log(this.espacios() + "Agua");
 
             this.IAgua();
-            //celda.classList.add('gris');
+
             return "Agua";
         }
     }
@@ -166,10 +164,7 @@ class Jugador {
                 col.classList.add('square2');
             } else {
                 col.classList.add('square', 'text-center');
-                // Añade la clase 'gris' si es necesario
-                // if (!(this instanceof Jugador1)) {
-                //     col.classList.add('gris');
-                // }
+  
             }
 
             row.appendChild(col);
