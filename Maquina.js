@@ -2,16 +2,16 @@ class Maquina extends Jugador {
     constructor() {
         super();
         this.ultTocado = null;
-        this.estado = 1;
-        this.nombreTablero='tableroMaquina'
+        this.estado = 0;
+        this.nombreTablero = 'tableroMaquina'
     }
 
-    getEstado() {
+    getDireccion() {
         return this.estado;
     }
 
-    setEstado(estado) {
-        this.estado = estado;
+    setDireccion(direccion) {
+        this.estado = direccion;
     }
 
     getUllTocado() {
@@ -26,38 +26,35 @@ class Maquina extends Jugador {
         let x = 0;
         let y = 0;
         let casillaDisparada = null;
+
         if (this.getUllTocado() === null) {
             do {
                 x = Math.floor(Math.random() * this.getX());
                 y = Math.floor(Math.random() * this.getY());
             } while (this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuedeDisparar());
         } else {
-            let valido = true;
-            do {
-                valido = true;
+            let valido = false;
+
+            while (!valido) {
                 x = this.getUllTocado().getX();
                 y = this.getUllTocado().getY();
-                switch (this.getEstado()) {
-                    case 1:
-                        x++;
-                        break;
-                    case 2:
-                        x--;
-                        break;
-                    case 3:
-                        y++;
-                        break;
-                    case 4:
-                        y--;
-                        break;
+
+                switch (this.getDireccion()) {
+                    case 1: x++; break;
+                    case 2: x--; break;
+                    case 3: y++; break;
+                    case 4: y--; break;
                 }
-                if (y >= this.getY() || y < 0 || x < 0 || x >= this.getX() || this.getCasilla(x, y).isDisparado() || !this.getCasilla(x, y).isPuedeDisparar()) {
-                    this.actuUllTocado(this.getEstado());
-                    this.setEstado(this.getEstado() + 1);
-                    valido = false;
+
+                valido = (y < this.getY() && y >= 0 && x >= 0 && x < this.getX() &&
+                    !this.getCasilla(x, y).isDisparado() && this.getCasilla(x, y).isPuedeDisparar());
+
+                if (!valido) {
+                    this.cambiarDireccion();
                 }
-            } while (!valido);
+            }
         }
+
         casillaDisparada = this.getCasilla(x, y);
         console.log(this.espacios() + "Dispara a " + casillaDisparada.toString());
         return casillaDisparada;
@@ -74,7 +71,7 @@ class Maquina extends Jugador {
                     if ((this.getCasilla(i, j).getBarco() !== null && this.getCasilla(i, j) !== this.getUllTocado()) && this.getCasilla(i, j).isDisparado()) {
                         valido = false;
                     }
-                } catch (error) {}
+                } catch (error) { }
                 j++;
             }
             i++;
@@ -87,31 +84,58 @@ class Maquina extends Jugador {
         switch (estado) {
             case 1:
                 this.setUllTocado(this.getCasilla(this.getUllTocado().getX() - tocado + 1, this.getUllTocado().getY()));
+                console.log("abajo")
+                break;
+            case 2:
+                this.setUllTocado(this.getCasilla(this.getUllTocado().getX() + tocado - 1, this.getUllTocado().getY()));
+                console.log("arriba")
                 break;
             case 3:
                 this.setUllTocado(this.getCasilla(this.getUllTocado().getX(), this.getUllTocado().getY() - tocado + 1));
+                console.log("derecha")
+                break;
+            case 4:
+                this.setUllTocado(this.getCasilla(this.getUllTocado().getX(), this.getUllTocado().getY() + tocado - 1));
+                console.log("izquierda")
                 break;
         }
     }
 
     IATocado(casillaDisparada) {
+        if (this.getUllTocado() == null) {
+            this.setDireccion(Math.floor(Math.random() * 4) + 1);
+        }
         this.setUllTocado(casillaDisparada);
     }
 
     IAHundido() {
+
         this.getUllTocado().getBarco().puedeDisparar();
         this.setUllTocado(null);
-        this.setEstado(1);
+        this.setDireccion(0);
     }
 
     IAgua() {
         if (this.getUllTocado() !== null) {
-            this.actuUllTocado(this.getEstado());
-            this.setEstado(this.getEstado() + 1);
+
+            this.cambiarDireccion();
+
+
+
         }
     }
 
     espacios() {
         return " ".repeat(130);
+    }
+    cambiarDireccion() {
+        const tocado = this.getUllTocado().getBarco().getTocado();
+    
+        if (tocado > 1) {
+            this.actuUllTocado(this.getDireccion());
+            this.setDireccion(this.getDireccion() + (this.getDireccion() % 2 !== 0 ? 1 : -1));
+        } else {
+            this.setDireccion(Math.floor(Math.random() * 4) + 1);
+        }
     }
 }
